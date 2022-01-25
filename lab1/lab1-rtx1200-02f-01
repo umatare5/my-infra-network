@@ -1,0 +1,45 @@
+lab1-rtx1200-02f-01# show config  
+# RTX1200 Rev.10.01.78 (Wed Nov 13 16:29:42 2019)
+# MAC Address : 00:a0:de:6c:c2:1e, 00:a0:de:6c:c2:1f, 00:a0:de:6c:c2:20
+# Memory 128Mbytes, 3LAN, 1BRI
+# main:  RTX1200 ver=c0 serial=D26152004 MAC-Address=00:a0:de:6c:c2:1e MAC-Address=00:a0:de:6c:c2:1f MAC-Address=00:a0:
+de:6c:c2:20
+# Reporting Date: Jan 26 14:09:25 2022
+login password *
+administrator password *
+login user admin *
+user attribute admin administrator=on
+security class 1 off off off
+console character ascii
+console columns 120
+console lines infinity
+console prompt lab1-rtx1200-02f-01
+login timer 1800
+ip route default gateway 192.168.0.1
+ip filter source-route on
+ip filter directed-broadcast on
+description lan1 Internal
+ip lan1 address 192.168.100.1/24
+lan shutdown lan2
+description lan3 lab1-cat35c-02f-01_Gi0/14
+ip lan3 address 192.168.0.250/24
+ip lan3 nat descriptor 1
+nat descriptor type 1 masquerade
+nat descriptor address outer 1 primary
+nat descriptor masquerade static 1 1 192.168.100.1 tcp 22
+nat descriptor masquerade static 1 2 192.168.100.1 tcp telnet
+tftp host none
+telnetd service on
+telnetd host lan1 lan3
+dhcp service server
+dhcp server rfc2131 compliant off
+dhcp scope 1 192.168.100.100-192.168.100.199/24
+dhcp scope option 1 dns=8.8.8.8,8.8.4.4
+dns server 8.8.8.8
+dns private address spoof on
+sshd service on
+sshd session 3
+sshd host lan1 lan3
+sshd host key generate *
+sshd encrypt algorithm aes256-ctr
+lab1-rtx1200-02f-01> 
