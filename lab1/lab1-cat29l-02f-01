@@ -1,6 +1,6 @@
 lab1-cat29l-02f-01# show running-config
-Load for five secs: 13%/0%; one minute: 2%; five minutes: 2%
-Time source is NTP, 13:48:59.504 JST Wed Jan 26 2022
+Load for five secs: 15%/0%; one minute: 3%; five minutes: 2%
+Time source is NTP, 13:50:02.298 JST Wed Jan 26 2022
 
 Building configuration...
 
