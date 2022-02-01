@@ -1,0 +1,191 @@
+lab1-ap-02f-01# show running-config
+Building configuration...
+
+Current configuration : 3567 bytes
+!
+version 15.3
+no service pad
+service timestamps debug datetime msec localtime
+service timestamps log datetime msec localtime
+service password-encryption
+no service dhcp
+!
+hostname lab1-ap-02f-01
+!
+!
+logging rate-limit console 9
+enable secret 5 <masked>
+!
+aaa new-model
+!
+!
+aaa authentication login vty local-case
+aaa authentication login con local-case
+aaa authentication enable default enable
+!
+!
+!
+!
+!
+aaa session-id common
+clock timezone JST 9 0
+no ip source-route
+no ip cef
+no ip domain lookup
+ip domain name labo.local
+!
+!
+!
+!
+vlan ifdescr detail
+dot11 mbssid
+dot11 pause-time 100
+dot11 syslog
+!
+dot11 ssid <masked>
+   vlan 200
+   authentication open 
+   authentication key-management wpa version 2
+   mbssid guest-mode
+   wpa-psk ascii 7 <masked>
+!
+dot11 ssid <masked>
+   vlan 300
+   authentication open 
+   authentication key-management wpa version 2
+   mbssid guest-mode
+   wpa-psk ascii 7 <masked>
+!
+!
+!
+authentication mac-move permit
+no ipv6 cef
+!
+!
+dot1x system-auth-control
+username Cisco password 7 00271A150754
+username admin secret 5 <masked>
+!
+!
+lldp run
+bridge irb
+!
+!
+!
+interface Dot11Radio0
+ no ip address
+ !
+ encryption vlan 300 mode ciphers aes-ccm 
+ !
+ encryption mode ciphers aes-ccm 
+ !
+ ssid <masked>
+ !
+ antenna gain 0
+ stbc
+ station-role root
+!
+interface Dot11Radio0.300
+ encapsulation dot1Q 300 native
+ bridge-group 1
+ bridge-group 1 subscriber-loop-control
+ bridge-group 1 spanning-disabled
+ bridge-group 1 block-unknown-source
+ no bridge-group 1 source-learning
+ no bridge-group 1 unicast-flooding
+!
+interface Dot11Radio1
+ no ip address
+ !
+ encryption vlan 300 mode ciphers aes-ccm 
+ !
+ encryption vlan 200 mode ciphers aes-ccm 
+ !
+ encryption mode ciphers aes-ccm 
+ !
+ ssid <masked>
+ !
+ ssid <masked>
+ !
+ antenna gain 0
+ peakdetect
+ dfs band 2 3 4 block
+ stbc
+ speed  basic-36.0 basic-48.0 basic-54.0 m0. m1. m2. m3. m4. m5. m6. m7. m8. m9. m10. m11. m12. m13. m14. m15. m16. m17. m18. m19. m20. m21. m22. m23.
+ channel width 40-above
+ channel 5180
+ station-role root
+ no dot11 extension aironet
+!
+interface Dot11Radio1.200
+ encapsulation dot1Q 200 native
+ bridge-group 1
+ bridge-group 1 subscriber-loop-control
+ bridge-group 1 spanning-disabled
+ bridge-group 1 block-unknown-source
+ no bridge-group 1 source-learning
+ no bridge-group 1 unicast-flooding
+!
+interface Dot11Radio1.300
+ encapsulation dot1Q 300
+!
+interface GigabitEthernet0
+ no ip address
+ duplex auto
+ speed auto
+ bridge-group 1
+ bridge-group 1 spanning-disabled
+ no bridge-group 1 source-learning
+!
+interface BVI1
+ description *** LAB-MGMT ***
+ mac-address 30f7.0d28.fc19
+ ip address 192.168.0.248 255.255.255.0
+ no ip route-cache
+ ipv6 address dhcp
+ ipv6 address autoconfig
+ ipv6 enable
+ arp timeout 300
+!
+ip default-gateway 192.168.0.254
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+ip http help-path http://www.cisco.com/warp/public/779/smbiz/prodconfig/help/eag
+!
+logging facility local1
+logging host 192.168.0.232
+!
+snmp-server community <masked> RO 1
+radius-server retransmit 1
+radius-server timeout 3
+!
+bridge 1 route ip
+!
+!
+banner motd ^CC
+***************************************
+
+Model     : Cisco AIR-SAP3602I-Q-K9
+Hostname  : lab1-ap-02f-01
+Sitename  : Labo 2F
+
+***************************************
+^C
+!
+line con 0
+ login authentication con
+ exec prompt timestamp
+line vty 0 4
+ access-class VTY_Access in
+ login authentication vty
+ exec prompt timestamp
+ transport input none
+line vty 5 15
+ access-class VTY_Access in
+ login authentication vty
+ transport input ssh
+!
+end
+
+lab1-ap-02f-01#

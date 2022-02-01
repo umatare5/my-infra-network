@@ -1,13 +1,13 @@
 lab1-cat29c-02f-01# show running-config
-Load for five secs: 20%/0%; one minute: 18%; five minutes: 17%
-Time source is NTP, 14:26:32.467 JST Wed Jan 26 2022
+Load for five secs: 21%/0%; one minute: 18%; five minutes: 19%
+Time source is NTP, 00:25:50.460 JST Wed Feb 2 2022
 
 Building configuration...
 
-Current configuration : 15853 bytes
+Current configuration : 15838 bytes
 !
-! Last configuration change at 07:46:15 JST Wed Jan 26 2022 by admin
-! NVRAM config last updated at 07:46:16 JST Wed Jan 26 2022 by admin
+! Last configuration change at 19:43:22 JST Sun Jan 30 2022 by admin
+! NVRAM config last updated at 22:30:40 JST Mon Jan 31 2022 by admin
 !
 version 15.2
 no service pad
@@ -283,49 +283,47 @@ interface GigabitEthernet0/3
  spanning-tree portfast edge
 !
 interface GigabitEthernet0/4
+ description rpi5.local
  switchport access vlan 800
  switchport mode access
  load-interval 30
+ priority-queue out 
  spanning-tree portfast edge
 !
 interface GigabitEthernet0/5
- description k8s-rpi41.local
+ description rpi1.local
  switchport access vlan 800
  switchport mode access
  load-interval 30
- shutdown
  power inline static
  spanning-tree portfast edge
 !
 interface GigabitEthernet0/6
- description k8s-rpi42.local
+ description rpi2.local
  switchport access vlan 800
  switchport mode access
  load-interval 30
- shutdown
  power inline static
  spanning-tree portfast edge
 !
 interface GigabitEthernet0/7
- description k8s-rpi43.local
+ description rpi3.local
  switchport access vlan 800
  switchport mode access
  load-interval 30
- shutdown
  power inline static
  spanning-tree portfast edge
 !
 interface GigabitEthernet0/8
- description k8s-rpi44.local
+ description rpi4.local
  switchport access vlan 800
  switchport mode access
  load-interval 30
- shutdown
  power inline static
  spanning-tree portfast edge
 !
 interface GigabitEthernet0/9
- description lab-cat29l-02f99-01_Gi0/8
+ description lab-cat35c-02f99-01_Gi0/1
  switchport access vlan 800
  switchport mode access
  load-interval 30

@@ -4,7 +4,7 @@ lab1-rtx1200-02f-01# show config  
 # Memory 128Mbytes, 3LAN, 1BRI
 # main:  RTX1200 ver=c0 serial=D26152004 MAC-Address=00:a0:de:6c:c2:1e MAC-Address=00:a0:de:6c:c2:1f MAC-Address=00:a0:
 de:6c:c2:20
-# Reporting Date: Jan 26 14:10:26 2022
+# Reporting Date: Feb 2 00:09:46 2022
 login password *
 administrator password *
 login user admin *
