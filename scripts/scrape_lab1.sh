@@ -7,8 +7,7 @@ DETAILS_DIR=details
 
 # Load libraries
 source ./scripts/lib/validation.sh
-source ./scripts/lib/fetch_from_cisco.sh
-source ./scripts/lib/fetch_from_yamaha.sh
+source ./scripts/lib/fetch.sh
 
 # Validations
 validate_current_dir ${REPO_NAME}
@@ -17,7 +16,7 @@ validate_telee_exists
 # Prepare directories
 mkdir -p $SITE_NAME/$DETAILS_DIR
 
-### Scrape for Cisco IOS ###
+### Scrape from Cisco Devices ###
 
 # Declare targets
 declare -a IOS_TARGETS=(
@@ -28,25 +27,37 @@ declare -a IOS_TARGETS=(
 
 # Fetch software information
 for TARGET in ${IOS_TARGETS[@]}; do
-  fetch_ios_software $TARGET > ./$SITE_NAME/$DETAILS_DIR/${TARGET}
+  fetch_cisco_software $TARGET > ./$SITE_NAME/$DETAILS_DIR/${TARGET}
 done
 
 # Fetch hardware information
 for TARGET in ${IOS_TARGETS[@]}; do
-  fetch_ios_hardware $TARGET >> ./$SITE_NAME/$DETAILS_DIR/${TARGET}
+  fetch_cisco_hardware $TARGET >> ./$SITE_NAME/$DETAILS_DIR/${TARGET}
 done
 
 # Fetch interfaces status
 for TARGET in ${IOS_TARGETS[@]}; do
-  fetch_ios_interface_status $TARGET >> ./$SITE_NAME/$DETAILS_DIR/${TARGET}
+  fetch_cisco_interface_status $TARGET >> ./$SITE_NAME/$DETAILS_DIR/${TARGET}
 done
 
 # Fetch configs
 for TARGET in ${IOS_TARGETS[@]}; do
-  fetch_ios_config $TARGET > ./$SITE_NAME/${TARGET}
+  fetch_cisco_config $TARGET > ./$SITE_NAME/${TARGET}
 done
 
-### Scrape for YAMAHA OS ###
+### Scrape from Aironet ###
+
+declare -a AIRONET_TARGETS_VIA_SSH=(
+  lab1-ap-02f-01 \
+  lab1-ap-02f-02
+)
+
+# Fetch configs
+for TARGET in ${AIRONET_TARGETS_VIA_SSH[@]}; do
+  fetch_aironet_config_via_ssh $TARGET > ./$SITE_NAME/${TARGET}
+done
+
+### Scrape from YAMAHA Devices ###
 
 # Declare targets
 declare -a YAMAHA_TARGETS=(
