@@ -1,4 +1,4 @@
-# my-network-config
+# my-infra-networking
 
 Switch and router's configurations in my labo.
 
