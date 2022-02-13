@@ -2,6 +2,10 @@
 
 Switch and router's configurations in my labo.
 
+## Overview
+
+![Overview](https://github.com/umatare5/my-infra-network/blob/images/diagram.png)
+
 ## Prerequisite
 
 | Command | Description                                                                 |
