@@ -1,12 +1,10 @@
 lab1-cat35c-02f-01# show running-config
-Load for five secs: 14%/0%; one minute: 14%; five minutes: 15%
-Time source is NTP, 00:25:23.422 JST Wed Feb 2 2022
-
 Building configuration...
 
-Current configuration : 14888 bytes
+Current configuration : 16286 bytes
 !
-! Last configuration change at 22:49:58 JST Mon Jan 31 2022
+! Last configuration change at 12:28:48 JST Mon Feb 14 2022 by admin
+! NVRAM config last updated at 12:28:49 JST Mon Feb 14 2022 by admin
 !
 version 15.2
 no service pad
@@ -21,9 +19,9 @@ boot-start-marker
 boot-end-marker
 !
 logging buffered 32768
-enable secret 5 <masked>
+enable secret 9 $9$elHugU7zodEoOA$d8kB3sG3lZwjHizrf3Fhz7SH13bgsm/X2tckHnGqX86
 !
-username admin secret 5 <masked>
+username admin secret 9 $9$Fe2c4aMO363P1m$.hfed.4wflljXfqubL6g167DPrf4iLWZttQ/6dknj/6
 aaa new-model
 !
 !
@@ -44,9 +42,11 @@ system mtu routing 1500
 !
 !
 no ip source-route
+ip routing
 !
 !
 no ip domain-lookup
+ip domain-name labo.local
 vtp domain local
 vtp mode off
 !
@@ -59,6 +59,33 @@ udld aggressive
 
 udld message time 7
 
+!
+flow record IPv4
+ match ipv4 protocol
+ match ipv4 source address
+ match ipv4 destination address
+ match transport source-port
+ match transport destination-port
+ collect counter bytes permanent
+ collect counter packets permanent
+ collect timestamp sys-uptime first
+ collect timestamp sys-uptime last
+!
+!
+flow exporter exp2.local
+ destination 192.168.255.10
+ source Vlan900
+ transport udp 5141
+!
+!
+flow monitor Monitor_IPv4
+ exporter exp2.local
+ record IPv4
+!
+mls qos queue-set output 1 threshold 1 3200 3200 100 3200
+mls qos queue-set output 1 threshold 2 3200 3200 100 3200
+mls qos queue-set output 1 threshold 3 3200 3200 100 3200
+mls qos queue-set output 1 threshold 4 3200 3200 100 3200
 mls qos
 no setup express
 !
@@ -231,17 +258,26 @@ crypto pki certificate pool
   F1E3B1EF DF918F54 2A0B25C1 2619C452 100565D5 8210EAC2 31CD2E
   	quit
 !
-spanning-tree mode pvst
+spanning-tree mode rapid-pvst
+spanning-tree logging
 spanning-tree extend system-id
+spanning-tree vlan 10,800 priority 4096
 !
 !
 !
 !
 vlan internal allocation policy ascending
 !
+vlan 10
+ name INTERNET
+!
 vlan 800
+ name INTERNAL
+!
+vlan 900
  name LAB-MGMT
 !
+lldp run
 !
 ! 
 !
@@ -253,21 +289,28 @@ vlan 800
 !
 !
 interface GigabitEthernet0/1
- description lab-cat29l-02f99-01_Gi0/8
+ description lab1-rtx1200-02f-01_lan3
  switchport access vlan 800
  switchport mode access
+ ip flow monitor Monitor_IPv4 input
  load-interval 30
  spanning-tree portfast edge
 !
 interface GigabitEthernet0/2
- description lab-cat29c-02f99-01_Gi0/10
+ description lab1-cat29c-02f99-01_Gi0/10
  switchport access vlan 800
  switchport mode access
+ ip flow monitor Monitor_IPv4 input
  load-interval 30
  spanning-tree portfast edge
 !
 interface GigabitEthernet0/3
- shutdown
+ description lab1-cat29l-02f99-01_Gi0/8
+ switchport access vlan 800
+ switchport mode access
+ ip flow monitor Monitor_IPv4 input
+ load-interval 30
+ spanning-tree portfast edge
 !
 interface GigabitEthernet0/4
  shutdown
@@ -285,30 +328,35 @@ interface GigabitEthernet0/8
  shutdown
 !
 interface GigabitEthernet0/9
- shutdown
+ description lab1-gateway-02f-01_lan1
+ switchport access vlan 800
+ switchport mode access
+ ip flow monitor Monitor_IPv4 input
+ load-interval 30
+ spanning-tree portfast edge
 !
 interface GigabitEthernet0/10
  shutdown
 !
 interface GigabitEthernet0/11
- shutdown
+ description lab1-gateway-02f-01_wan1
+ switchport access vlan 10
+ switchport mode access
+ load-interval 30
+ spanning-tree portfast edge
 !
 interface GigabitEthernet0/12
  shutdown
 !
 interface GigabitEthernet0/13
- description lab-rtx1200-02f-01_lan3
- switchport access vlan 800
+ description INTERNET
+ switchport access vlan 10
  switchport mode access
  load-interval 30
  spanning-tree portfast edge
 !
 interface GigabitEthernet0/14
- description default-gateway
- switchport access vlan 800
- switchport mode access
- load-interval 30
- spanning-tree portfast edge
+ shutdown
 !
 interface GigabitEthernet0/15
 !
@@ -316,19 +364,23 @@ interface GigabitEthernet0/16
 !
 interface Vlan1
  no ip address
- no ip route-cache
  shutdown
 !
 interface Vlan800
- description *** LAB-MGMT ***
+ description INTERNAL
  ip address 192.168.0.254 255.255.255.0
- no ip route-cache
+ arp timeout 300
+!
+interface Vlan900
+ description LAB-MGMT
+ ip address 192.168.255.254 255.255.255.0
  arp timeout 300
 !
 ip forward-protocol nd
 !
 no ip http server
 no ip http secure-server
+ip ssh version 2
 !
 !
 logging facility local1
@@ -354,14 +406,12 @@ Sitename  : Labo 2F
 line con 0
  exec prompt timestamp
 line vty 0 4
- access-class VTY_Access in
  login authentication vty
  exec prompt timestamp
- transport input telnet ssh
-line vty 5 15
- access-class VTY_Access in
- login authentication vty
  transport input none
+line vty 5 15
+ login authentication vty
+ transport input ssh
 !
 ntp source Vlan800
 ntp server 210.173.160.57
