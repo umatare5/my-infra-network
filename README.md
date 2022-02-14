@@ -6,13 +6,6 @@ Switch and router's configurations in my labo.
 
 ![Overview](https://github.com/umatare5/my-infra-network/blob/images/diagram.png)
 
-## Prerequisite
-
-| Command | Description                                                                   |
-| ------- | ----------------------------------------------------------------------------- |
-| telee   | Download from [telee/releases](https://github.com/umatare5/telee/releases).   |
-| gnu-sed | If using Mac, please set a alias `gnu-sed` (`brew install gnu-sed`) to `sed`. |
-
 ## Commands
 
 | Command       | Description                                         |
@@ -21,7 +14,14 @@ Switch and router's configurations in my labo.
 | `make save`   | Save configuration on each targets.                 |
 | `make push`   | Push changes with current timestamp.                |
 
-## Hosts
+- Prerequisite
+
+  | Command | Description                                                                   |
+  | ------- | ----------------------------------------------------------------------------- |
+  | telee   | Download from [telee/releases](https://github.com/umatare5/telee/releases).   |
+  | gnu-sed | If using Mac, please set a alias `gnu-sed` (`brew install gnu-sed`) to `sed`. |
+
+## My Hosts
 
 ```bash
 192.168.0.248 lab1-ap-02f-01
@@ -31,12 +31,4 @@ Switch and router's configurations in my labo.
 192.168.0.252 lab1-cat29c-02f-01
 192.168.0.253 lab1-cat29l-02f-01
 192.168.0.254 lab1-cat35c-02f-01
-```
-
-## Operations
-
-### scrape all configs
-
-```plaintext
-make scrape
 ```
