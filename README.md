@@ -15,11 +15,11 @@ Switch and router's configurations in my labo.
 
 ## Commands
 
-| Command       | Description                                           |
-| ------------- | ----------------------------------------------------- |
-| `make scrape` | Prepare base configurations on Ubuntu 20.04.          |
-| `make save`   | Setup Prometheus exporters on server.                 |
-| `make push`   | Setup Prometheus, Alertmanager and Grafana on docker. |
+| Command       | Description                                         |
+| ------------- | --------------------------------------------------- |
+| `make scrape` | Scrape status and configurations from each targets. |
+| `make save`   | Save configuration on each targets.                 |
+| `make push`   | Push changes with current timestamp.                |
 
 ## Hosts
 
