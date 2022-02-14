@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Preset variables
-REPO_NAME=my-network-config
+REPO_NAME=my-infra-network
 SITE_NAME=lab1
 DETAILS_DIR=details
 
