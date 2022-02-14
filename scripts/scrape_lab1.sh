@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Preset variables
-REPO_NAME=my-network-config
+REPO_NAME=my-infra-network
 SITE_NAME=lab1
 DETAILS_DIR=details
 
@@ -19,45 +19,33 @@ mkdir -p $SITE_NAME/$DETAILS_DIR
 ### Scrape from Cisco Devices ###
 
 # Declare targets
-declare -a IOS_TARGETS=(
+declare -a CISCO_TARGETS_VIA_SSH=(
   lab1-cat29c-02f-01 \
   lab1-cat29l-02f-01 \
   lab1-cat35c-02f-01
 )
 
 # Fetch software information
-for TARGET in ${IOS_TARGETS[@]}; do
-  fetch_cisco_software $TARGET > ./$SITE_NAME/$DETAILS_DIR/${TARGET}
+for TARGET in ${CISCO_TARGETS_VIA_SSH[@]}; do
+  fetch_cisco_software_via_ssh $TARGET > ./$SITE_NAME/$DETAILS_DIR/${TARGET}
 done
 
 # Fetch hardware information
-for TARGET in ${IOS_TARGETS[@]}; do
-  fetch_cisco_hardware $TARGET >> ./$SITE_NAME/$DETAILS_DIR/${TARGET}
+for TARGET in ${CISCO_TARGETS_VIA_SSH[@]}; do
+  fetch_cisco_hardware_via_ssh $TARGET >> ./$SITE_NAME/$DETAILS_DIR/${TARGET}
 done
 
 # Fetch interfaces status
-for TARGET in ${IOS_TARGETS[@]}; do
-  fetch_cisco_interface_status $TARGET >> ./$SITE_NAME/$DETAILS_DIR/${TARGET}
+for TARGET in ${CISCO_TARGETS_VIA_SSH[@]}; do
+  fetch_cisco_interface_status_via_ssh $TARGET >> ./$SITE_NAME/$DETAILS_DIR/${TARGET}
 done
 
 # Fetch configs
-for TARGET in ${IOS_TARGETS[@]}; do
-  fetch_cisco_config $TARGET > ./$SITE_NAME/${TARGET}
+for TARGET in ${CISCO_TARGETS_VIA_SSH[@]}; do
+  fetch_cisco_config_via_ssh $TARGET > ./$SITE_NAME/${TARGET}
 done
 
-### Scrape from Aironet ###
-
-declare -a AIRONET_TARGETS_VIA_SSH=(
-  lab1-ap-02f-01 \
-  lab1-ap-02f-02
-)
-
-# Fetch configs
-for TARGET in ${AIRONET_TARGETS_VIA_SSH[@]}; do
-  fetch_aironet_config_via_ssh $TARGET > ./$SITE_NAME/${TARGET}
-done
-
-### Scrape from YAMAHA Devices ###
+### Scrape from YAMAHA OS ###
 
 # Declare targets
 declare -a YAMAHA_TARGETS=(

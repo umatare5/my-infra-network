@@ -1,4 +1,4 @@
-# Save config
+# Save config by using telnet
 function save_cisco_config(){
   HOSTNAME=$1
 
@@ -6,7 +6,7 @@ function save_cisco_config(){
   telee -H $HOSTNAME -C "write memory" --enable-mode
 }
 
-# Save config
+# Save config by using SSH
 function save_cisco_config_via_ssh(){
   HOSTNAME=$1
 
@@ -14,7 +14,7 @@ function save_cisco_config_via_ssh(){
   telee -H $HOSTNAME -C "write memory" --enable-mode --secure-mode
 }
 
-# Save config
+# Save config on YAMAHA OS by using telnet
 function save_yamaha_config(){
   HOSTNAME=$1
 

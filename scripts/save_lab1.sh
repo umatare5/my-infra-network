@@ -19,24 +19,14 @@ mkdir -p $SITE_NAME/$DETAILS_DIR
 ### Save on Cisco IOS ###
 
 # Declare targets
-declare -a CISCO_TARGETS=(
+declare -a CISCO_TARGETS_VIA_SSH=(
   lab1-cat29c-02f-01 \
   lab1-cat29l-02f-01 \
   lab1-cat35c-02f-01
 )
 
-declare -a CISCO_TARGETS_VIA_SSH=(
-  lab1-ap-02f-01 \
-  lab1-ap-02f-02
-)
-
 # Fetch configs
-for TARGET in ${IOS_TARGETS[@]}; do
-  save_cisco_config $TARGET
-done
-
-# Fetch configs
-for TARGET in ${IOS_TARGETS_VIA_SSH[@]}; do
+for TARGET in ${CISCO_TARGETS_VIA_SSH[@]}; do
   save_cisco_config_via_ssh $TARGET
 done
 
