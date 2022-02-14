@@ -14,12 +14,12 @@ Switch and router's configurations in my labo.
 | `make save`   | Save configuration on each targets.                 |
 | `make push`   | Push changes with current timestamp.                |
 
-- Prerequisite
+## Prerequisite
 
-  | Command | Description                                                                   |
-  | ------- | ----------------------------------------------------------------------------- |
-  | telee   | Download from [telee/releases](https://github.com/umatare5/telee/releases).   |
-  | gnu-sed | If using Mac, please set a alias `gnu-sed` (`brew install gnu-sed`) to `sed`. |
+| Command | Description                                                                   |
+| ------- | ----------------------------------------------------------------------------- |
+| telee   | Download from [telee/releases](https://github.com/umatare5/telee/releases).   |
+| gnu-sed | If using Mac, please set a alias `gnu-sed` (`brew install gnu-sed`) to `sed`. |
 
 ## My Hosts
 
