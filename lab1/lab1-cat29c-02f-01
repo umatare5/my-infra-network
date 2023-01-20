@@ -1,10 +1,10 @@
 lab1-cat29c-02f-01# show running-config
 Building configuration...
 
-Current configuration : 15704 bytes
+Current configuration : 16047 bytes
 !
-! Last configuration change at 12:29:22 JST Mon Feb 14 2022 by admin
-! NVRAM config last updated at 12:29:22 JST Mon Feb 14 2022 by admin
+! Last configuration change at 06:00:20 JST Sat Jan 21 2023 by admin
+! NVRAM config last updated at 06:00:21 JST Sat Jan 21 2023 by admin
 !
 version 15.2
 no service pad
@@ -258,6 +258,23 @@ lldp run
 !
 !
 interface GigabitEthernet0/1
+ description lab1-ap345-01f-01
+ switchport access vlan 800
+ switchport mode access
+ load-interval 30
+ power inline static
+ priority-queue out 
+ spanning-tree portfast edge
+!
+interface GigabitEthernet0/2
+ description lab1-ap345-01f-02
+ switchport access vlan 800
+ switchport mode access
+ load-interval 30
+ power inline static
+ spanning-tree portfast edge
+!
+interface GigabitEthernet0/3
  description web1.local
  switchport access vlan 800
  switchport mode access
@@ -265,7 +282,7 @@ interface GigabitEthernet0/1
  power inline never
  spanning-tree portfast edge
 !
-interface GigabitEthernet0/2
+interface GigabitEthernet0/4
  description npc1.local
  switchport access vlan 800
  switchport mode access
@@ -273,23 +290,12 @@ interface GigabitEthernet0/2
  power inline never
  spanning-tree portfast edge
 !
-interface GigabitEthernet0/3
- description Android_TV
- switchport access vlan 800
- switchport mode access
- load-interval 30
- priority-queue out 
- spanning-tree portfast edge
-!
-interface GigabitEthernet0/4
- shutdown
-!
 interface GigabitEthernet0/5
  description rpi1.local
  switchport access vlan 800
  switchport mode access
  load-interval 30
- power inline static
+ power inline static max 15400
  spanning-tree portfast edge
 !
 interface GigabitEthernet0/6
@@ -297,7 +303,7 @@ interface GigabitEthernet0/6
  switchport access vlan 800
  switchport mode access
  load-interval 30
- power inline static
+ power inline static max 15400
  spanning-tree portfast edge
 !
 interface GigabitEthernet0/7
@@ -305,7 +311,7 @@ interface GigabitEthernet0/7
  switchport access vlan 800
  switchport mode access
  load-interval 30
- power inline static
+ power inline static max 15400
  spanning-tree portfast edge
 !
 interface GigabitEthernet0/8
@@ -313,7 +319,7 @@ interface GigabitEthernet0/8
  switchport access vlan 800
  switchport mode access
  load-interval 30
- power inline static
+ power inline static max 15400
  spanning-tree portfast edge
 !
 interface GigabitEthernet0/9
@@ -325,7 +331,12 @@ interface GigabitEthernet0/9
  spanning-tree portfast edge
 !
 interface GigabitEthernet0/10
- shutdown
+ description Android_TV
+ switchport access vlan 800
+ switchport mode access
+ load-interval 30
+ priority-queue out 
+ spanning-tree portfast edge
 !
 interface GigabitEthernet0/11
  shutdown
