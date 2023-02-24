@@ -1,10 +1,10 @@
 lab1-cat29c-02f-01# show running-config
 Building configuration...
 
-Current configuration : 16585 bytes
+Current configuration : 16551 bytes
 !
-! Last configuration change at 02:29:26 JST Thu Feb 23 2023 by admin
-! NVRAM config last updated at 02:32:31 JST Thu Feb 23 2023 by admin
+! Last configuration change at 14:28:44 JST Fri Feb 24 2023 by admin
+! NVRAM config last updated at 14:29:02 JST Fri Feb 24 2023 by admin
 !
 version 15.2
 no service pad
@@ -269,7 +269,6 @@ lldp run
 interface GigabitEthernet0/1
  description lab1-ap345-01f-01
  switchport trunk allowed vlan 201,202,800,991
- switchport trunk native vlan 800
  switchport mode trunk
  ip arp inspection trust
  no logging event link-status
